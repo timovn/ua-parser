@@ -1,0 +1,63 @@
+/*
+ *
+ * 2013 - Timo Van Neerden (http://lehollandaisvolant.net/)
+ * 2013-11-10 : added IE11 detection + Windows 8.1
+ *
+ * This script is in PUBLIC DOMAIN, to what you want to with it. It’s free.
+ *
+ * Free PHP-User Agent Parser.
+ * This script matches almost all of the 5 big browsers (chrome/firefox/safari/opera/IE)
+ *  and their mobile versions.
+ * Browsers based upon these 5 browsers should work too (camino, iron, yandex, iceweasel, Dolphin…)
+ *
+ * Crowlers, Symbian, Nokia and the rest are not supported here, even if they might
+ *  work if their UA is not too exotic
+ *
+ * OSes, Windows versions, Linux distros, and OS-X versions are also detected.
+ *
+ * This script is not 100% complet nor 100% accurate.
+ *
+ *
+ * The author of this script can not be held as responsible
+ *  for any damages caused by this script.
+ *
+*/
+
+
+The script returns an array from the user agent : parsing + détecting (ex : "windows NT 6.1" is Windows 7):
+
+Example 1 (Firefox 26 on Windows 8.1) : 
+
+Input : Mozilla/5.0 (Windows NT 6.3; rv:26.0) Gecko/20100101 Firefox/26.0
+Output :
+array $infos [
+	'full-UA'       =>  string 'Mozilla/5.0 (Windows NT 6.3; rv:26.0) Gecko/20100101 Firefox/26.0'
+	'browser-name'  =>  string 'Firefox'
+	'browser-vers'  =>  string '26.0'
+	'platfrm_name'  =>  string 'Windows '
+	'platfrm_vers'  =>  string '8.1'
+	'rndreng_name'  =>  string 'Gecko'
+	'rndreng_vers'  =>  string '20100101'
+	'archtcr_name'  =>  string '32 Bit'
+	'misc'          =>  array()
+	'ip_adresse'    =>  string '127.0.0.1'
+]
+
+
+Example 2 (Chromium 31 on Linux Ubuntu) :
+
+Input : Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/31.0.1650.63 Chrome/31.0.1650.63 Safari/537.36
+Output :
+array $infos [
+	'full-UA'       =>  string 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/31.0.1650.63 Chrome/31.0.1650.63 Safari/537.36'
+	'browser-name'  =>  string 'Chromium'
+	'browser-vers'  =>  string '31.0.1650.63'
+	'platfrm_name'  =>  string 'Linux'
+	'platfrm_vers'  =>  string ''
+	'rndreng_name'  =>  string 'WebKit'
+	'rndreng_vers'  =>  string '537.36'
+	'archtcr_name'  =>  string '64 Bit'
+	'misc'          =>  array()
+	'ip_adresse'    =>  string '127.0.0.1'
+]
+
