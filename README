@@ -2,6 +2,8 @@
  *
  * 2013 - Timo Van Neerden (http://lehollandaisvolant.net/)
  * 2013-11-10 : added IE11 detection + Windows 8.1
+ * 2014-04-04 : added Nintendo Wii/WiiU/DS/DSi/3DS
+ *              Playstation, XBox & Backberry detection
  *
  * This script is in PUBLIC DOMAIN, to what you want to with it. It’s free.
  *
