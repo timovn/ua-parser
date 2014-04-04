@@ -1,68 +1,28 @@
 <?php
 /*
  *
- * 2013 - Timo Van Neerden (http://lehollandaisvolant.net/)
- * 2013-11-10 : added IE11 detection + Windows 8.1
+ * 2014 - Timo Van Neerden
+ * 20131110 : added IE11 detection + Windows 8.1
+ * 20140404 : added Nintendo Wii/WiiU/DS/DSi/3DS
+ *                  Playstation, XBox, Backberry detection
  *
  * This script is in PUBLIC DOMAIN, to what you want to with it. It’s free.
  *
  * Free PHP-User Agent Parser.
  * This script matches almost all of the 5 big browsers (chrome/firefox/safari/opera/IE)
  *  and their mobile versions.
- * Browsers based upon these 5 browsers should work too (camino, iron, yandex, iceweasel, Dolphin…)
+ * Browsers based upon these 5 browsers should work too (camino, iron, yandex, iceweasel…)
  *
  * Crowlers, Symbian, Nokia and the rest are not supported here, even if they might
  *  work if their UA is not too exotic
  *
- * OSes, Windows versions, Linux distros, and OS-X versions are also detected.
+ * OSes, Windows versions, Linux distros, OS-X, Nintendo 3DS versions are also detected.
  *
  * This script is not 100% complet nor 100% accurate.
  *
  *
  * The author of this script can not be held as responsible
  *  for any damages caused by this script.
- *
-*/
-
-
-/*
- * The script returns an array from the user agent : parsing + détecting (ex : "windows NT 6.1" is Windows 7):
- *
- * Ex : 
- * Input : Mozilla/5.0 (Windows NT 6.3; rv:26.0) Gecko/20100101 Firefox/26.0
- *
- * Output :
- * array $infos [
- *		'full-UA'       =>  string 'Mozilla/5.0 (Windows NT 6.3; rv:26.0) Gecko/20100101 Firefox/26.0'
- *		'browser-name'  =>  string 'Firefox'
- *		'browser-vers'  =>  string '26.0'
- *		'platfrm_name'  =>  string 'Windows '
- *		'platfrm_vers'  =>  string '8.1'
- *		'rndreng_name'  =>  string 'Gecko'
- *		'rndreng_vers'  =>  string '20100101'
- *		'archtcr_name'  =>  string '32 Bit'
- *		'misc'          =>  array()
- *
- *		'ip_adresse'    =>  string '127.0.0.1'
- *	]
- *
- *
- * Input : Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu
- *
- * Output :
- * array $infos [
- *		'full-UA'       =>  string 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu'
- *		'browser-name'  =>  string 'Chromium'
- *		'browser-vers'  =>  string '31.0.1650.63'
- *		'platfrm_name'  =>  string 'Linux'
- *		'platfrm_vers'  =>  string ''
- *		'rndreng_name'  =>  string 'WebKit'
- *		'rndreng_vers'  =>  string '537.36'
- *		'archtcr_name'  =>  string '64 Bit'
- *		'misc'          =>  array()
- *
- *		'ip_adresse'    =>  string '127.0.0.1'
- *	]
  *
  *
 */
@@ -86,7 +46,14 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
 	$UA = $_SERVER['HTTP_USER_AGENT'];
 }
 
+// in order to share infos with someone (on a forum, for example) an UA can be given in the URL
+if (isset($_GET['ua'])) {
+	$UA = base64_decode($_GET['ua']);
+	$infos['ip_adress'] = $_GET['ip'];
+}
+
 $infos['full-UA'] = $UA;
+$infos['full-UA-Base64'] = base64_encode($UA);
 
 
 /* FIRST : BROWSER DETECTION */
@@ -387,6 +354,12 @@ if (preg_match('#[^()]*\((([^()]+|(?R))*)\)[^()]*#i', $UA, $m_os_str)) {
 				$infos['platfrm_vers'] = 'Uknown Version';
 			}
 
+			// XBox
+			if (preg_match('#Xbox#i', $UA_Brw, $m_xbox)) {
+				$infos['platfrm_name'] = 'XBox, Windows';
+			}
+
+
 		}
 		// Linux
 		elseif (stripos($m_oses[1], 'Linux') !== FALSE) {
@@ -439,6 +412,30 @@ if (preg_match('#[^()]*\((([^()]+|(?R))*)\)[^()]*#i', $UA, $m_os_str)) {
 		$infos['platfrm_vers'] = $m_android[1];
 	}
 
+	// BlackBerry
+	elseif (preg_match('#(BlackBerry|BB1[0-9]+)#i', $UA_Brw, $m_blackberry)) {
+		$infos['platfrm_name'] = 'BlackBerry';
+		$infos['platfrm_vers'] = '';
+	}
+
+	// Nintendo DS/DSi/3DS
+	elseif (preg_match('#Nintendo ?([0-9a-zA-Z]*)?#i', $UA_Brw, $m_nintendo)) {
+		$infos['platfrm_name'] = 'Nintendo';
+		$infos['platfrm_vers'] = $m_nintendo[1];
+
+		// Nintendo Wii/WiiU
+		if (preg_match('#WiiU?#i', $UA_Brw, $m_nintendo_wii)) {
+			$infos['platfrm_name'] = 'Nintendo Wii';
+			$infos['platfrm_vers'] = $m_nintendo_wii[0];
+		}
+	}
+
+	// PlayStation
+	elseif (preg_match('#PLAYSTATION ([0-9]*)?#i', $UA_Brw, $m_ps)) {
+		$infos['platfrm_name'] = 'PlayStation';
+		$infos['platfrm_vers'] = $m_ps[1];
+	}
+
 	// Unknown OS (or not specified)
 	else {
 		$infos['platfrm_name'] = 'Unknown';
@@ -468,4 +465,3 @@ if (preg_match('#(AMD64|x86_64|WOW64)#i', $UA, $m_archi)) {
 
 
 $GLOBALS['parsed_UA'] = $infos;
-
