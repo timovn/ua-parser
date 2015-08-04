@@ -5,6 +5,8 @@
  * 20131110 : added IE11 detection + Windows 8.1
  * 20140404 : added Nintendo Wii/WiiU/DS/DSi/3DS
  *                  Playstation, XBox, Backberry detection
+ * 20150804 : fixed Architecture detection bug (added two 64Bit-flag keywords)
+ *
  *
  * This script is in PUBLIC DOMAIN, to what you want to with it. It’s free.
  *
@@ -21,10 +23,8 @@
  * This script is not 100% complet nor 100% accurate.
  *
  *
- * The author of this script can not be held as responsible
+ * The author of this script cannot be held as responsible
  *  for any damages caused by this script.
- *
- *
 */
 
 $UA = '';
@@ -36,7 +36,7 @@ $infos['platfrm_name'] = '';
 $infos['platfrm_vers'] = '';
 $infos['rndreng_name'] = '';
 $infos['rndreng_vers'] = '';
-$infos['archtcr_name'] = '';
+$infos['archtcr_name'] = 'Unknown';
 $infos['misc'] = array();
 
 $infos['ip_adress'] = $_SERVER['REMOTE_ADDR'];
@@ -458,7 +458,7 @@ if (preg_match('#(i\d86|x86|)#i', $UA, $m_archi)) {
 	$infos['archtcr_name'] = '32 Bit';
 }
 
-if (preg_match('#(AMD64|x86_64|WOW64)#i', $UA, $m_archi)) {
+if (preg_match('#(AMD64|x86_64|WOW64|Win64|x64)#i', $UA, $m_archi)) {
 	$infos['archtcr_name'] = '64 Bit';
 }
 
