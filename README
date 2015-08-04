@@ -1,17 +1,15 @@
 /*
  *
- * 2013 - Timo Van Neerden (http://lehollandaisvolant.net/)
- * 2013-11-10 : added IE11 detection + Windows 8.1
- * 2014-04-04 : added Nintendo Wii/WiiU/DS/DSi/3DS
- *              Playstation, XBox & Backberry detection
+ * 2013 - 2015 Timo Van Neerden (http://lehollandaisvolant.net/)
  *
  * This script is in PUBLIC DOMAIN, to what you want to with it. It’s free.
  *
  * Free PHP-User Agent Parser.
- * It matches all of the 5 big browsers (chrome/firefox/safari/opera/IE)
+ * It matches all of the 5 big browsers (chrome/firefox/safari/opera/IE-Edge)
  *  and their mobile versions.
  * Browsers based upon these 5 browsers should work too
  *  (camino, iron, yandex, iceweasel, Dolphin…)
+ * Main game stations will work (XBox, Nintendo…)
  *
  * Crowlers, Symbian, Nokia and the rest are not supported here,
  *  even if they might work if their UA is not too exotic.
