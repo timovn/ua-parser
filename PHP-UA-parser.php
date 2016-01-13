@@ -6,16 +6,16 @@
  * 20140404 : added Nintendo Wii/WiiU/DS/DSi/3DS
  *                  Playstation, XBox, Backberry detection
  * 20150804 : fixed Architecture detection bug (added two 64Bit-flag keywords)
+ * 20160113 : added basic Symbian detection
  *
  *
  * This script is in PUBLIC DOMAIN, to what you want to with it. It’s free.
  *
  * Free PHP-User Agent Parser.
- * This script matches almost all of the 5 big browsers (chrome/firefox/safari/opera/IE)
- *  and their mobile versions.
+ * This script matches almost all of the "big" browsers and their mobile versions.
  * Browsers based upon these 5 browsers should work too (camino, iron, yandex, iceweasel…)
  *
- * Crowlers, Symbian, Nokia and the rest are not supported here, even if they might
+ * Crowlers, and some rare browsers are not supported here, even if they might
  *  work if their UA is not too exotic
  *
  * OSes, Windows versions, Linux distros, OS-X, Nintendo 3DS versions are also detected.
@@ -434,6 +434,17 @@ if (preg_match('#[^()]*\((([^()]+|(?R))*)\)[^()]*#i', $UA, $m_os_str)) {
 	elseif (preg_match('#PLAYSTATION ([0-9]*)?#i', $UA_Brw, $m_ps)) {
 		$infos['platfrm_name'] = 'PlayStation';
 		$infos['platfrm_vers'] = $m_ps[1];
+	}
+
+	// Nokia/Symbian
+	elseif (preg_match('#Series ?([0-9]*)?#i', $UA_Brw, $m_nokia)) {
+		$infos['platfrm_name'] = 'Symbian OS';
+		$infos['platfrm_vers'] = '';
+		// More precise version
+		if (preg_match('#Symbian(OS)?(/([0-9.]*))?#i', $UA_Brw, $m_symbian)) {
+			$infos['platfrm_name'] = 'Symbian OS';
+			$infos['platfrm_vers'] = $m_symbian[3];
+		}
 	}
 
 	// Unknown OS (or not specified)
