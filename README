@@ -1,27 +1,23 @@
 /*
  *
- * 2013 - 2015 Timo Van Neerden (http://lehollandaisvolant.net/)
+ * 2013 - 2016 Timo Van Neerden (http://lehollandaisvolant.net/)
  *
  * This script is in PUBLIC DOMAIN, to what you want to with it. It’s free.
  *
  * Free PHP-User Agent Parser.
- * It matches all of the 5 big browsers (chrome/firefox/safari/opera/IE-Edge)
- *  and their mobile versions.
- * Browsers based upon these 5 browsers should work too
- *  (camino, iron, yandex, iceweasel, Dolphin…)
- * Main game stations will work (XBox, Nintendo…)
+ * This script matches almost all of the "big" browsers and their mobile versions.
+ * Browsers based upon these 5 browsers should work too (camino, iron, yandex, iceweasel…)
  *
- * Crowlers, Symbian, Nokia and the rest are not supported here,
- *  even if they might work if their UA is not too exotic.
+ * Crowlers, and some rare browsers are not supported here, even if they might
+ *  work if their UA is not too exotic
  *
- * OS's, Windows versions, Linux distros, and OS-X versions are also detected.
+ * OSes, Windows versions, Linux distros, OS-X, Nintendo 3DS versions are also detected.
  *
  * This script is not 100% complet nor 100% accurate.
  *
  *
- * The author of this script can not be held as responsible
+ * The author of this script cannot be held as responsible
  *  for any damages caused by this script.
- *
 */
 
 
