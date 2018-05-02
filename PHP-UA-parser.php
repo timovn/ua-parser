@@ -334,6 +334,7 @@ if (preg_match('#[^()]*\((([^()]+|(?R))*)\)[^()]*#i', $UA, $m_os_str)) {
 					case '6.1': $infos['platfrm_vers'] = '7'; break;
 					case '6.2': $infos['platfrm_vers'] = '8'; break;
 					case '6.3': $infos['platfrm_vers'] = '8.1'; break;
+					case '10.0': $infos['platfrm_vers'] = '10'; break;
 					default: $infos['platfrm_vers'] = $m_win_version[1]; break;
 				}
 			}
